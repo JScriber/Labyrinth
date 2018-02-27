@@ -45,6 +45,8 @@ public class Labyrinth {
 	// Adds the goal point of the game
 	private void addGoalPoint() {
 		Coordinates randomPlace;
+		// Makes sure we aren't overwriting the Start point.
+		// (it wouldn't make sense...)
 		do {
 			randomPlace = randomPoint();
 		} while(this.getCell(randomPlace) instanceof Start);

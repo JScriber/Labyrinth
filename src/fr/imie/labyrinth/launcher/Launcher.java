@@ -1,5 +1,8 @@
 package fr.imie.labyrinth.launcher;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import fr.imie.labyrinth.exceptions.MissingArgumentsException;
 import fr.imie.labyrinth.exceptions.TooHighNumberException;
 
@@ -8,7 +11,16 @@ public class Launcher {
 	public static void simpleLabyrinth(int width, int height, String file) {
 		// Inverted height and width for proper displaying (the array makes it rotated)
 		Labyrinth laby = new Labyrinth(height, width);
-		
+
+		// Create a file and put it into
+		try{
+		    PrintWriter writer = new PrintWriter(file, "UTF-8");
+		    writer.println(laby);
+		    writer.close();
+		} catch(IOException e) {
+			System.out.println("Not able to save the labyrinth.");
+		}
+		// Displays it into the console as well
 		System.out.println(laby);
 	}
 	
