@@ -17,6 +17,16 @@ public class Tracer extends Cell {
 		return this.coordinates;
 	}
 	
+	// Checks if the other one hasn't the same coordinates
+	public boolean hasDifferentCoordinates(Coordinates other) {
+		if(other.getX() == this.coordinates.getX() &&
+			other.getY() == this.coordinates.getY()) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
 	// Shortcuts (for cleaner code)
 	public int getX() {
 		return this.coordinates.getX();
@@ -45,6 +55,30 @@ public class Tracer extends Cell {
 				this.moveY = -1;
 			break;
 		}
+	}
+	
+	public void move(int width, int height) {
+		// Moves the tracer to its new coordinates (the old one belongs to the previous tracer or start point)
+		int newX = this.coordinates.getX() + this.moveX;
+		int newY = this.coordinates.getY() + this.moveY;
+		
+		// Makes sure we aren't getting out of the labyrinth
+		if(newX > width-2) {
+			newX = width-2;
+		}
+		if(newY > height-2) {
+			newY = height-2;
+		}
+		if(newX < 1) {
+			newX = 1;
+		}
+		if(newY < 1) {
+			newY = 1;
+		}
+		
+		// Applying the coordonates
+		this.coordinates.setX(newX);
+		this.coordinates.setY(newY);
 	}
 	
 	// Access the moveX / moveY from the outside

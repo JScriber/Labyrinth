@@ -10,12 +10,10 @@ public class Distance {
 		// Detects if the end is before the start reading from up to bottom, left to right.
 		this.horizontal = (start.getX() - end.getX());
 		if(this.horizontal < 0) {
-			this.horizontal = Math.abs(this.horizontal);
 			this.endFirstX = true;
 		}
 		this.vertical = (start.getY() - end.getY());
 		if(this.vertical < 0) {
-			this.vertical = Math.abs(this.vertical);
 			this.endFirstY = true;
 		}
 	}
@@ -28,9 +26,16 @@ public class Distance {
 	}
 
 	public int horizontal() {
-		return this.horizontal;
+		return this.horizontal*-1;
 	}
 	public int vertical() {
 		return this.vertical;
+	}
+
+	public int absHorizontal() {
+		return Math.abs(this.horizontal);
+	}
+	public int absVertical() {
+		return Math.abs(this.vertical);
 	}
 }

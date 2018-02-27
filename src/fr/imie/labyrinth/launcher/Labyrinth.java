@@ -70,8 +70,8 @@ public class Labyrinth {
 			this.goal = randomPlace;
 
 			distance = new Distance(this.start, this.goal);
-		}while(distance.horizontal() < this.width/distanceRatio
-				 || distance.vertical() < this.height/distanceRatio);
+		}while(distance.absHorizontal() < this.width/distanceRatio
+				 || distance.absVertical() < this.height/distanceRatio);
 		
 		
 		// Adds it to the table
@@ -81,6 +81,11 @@ public class Labyrinth {
 	
 	// Modify the cells
 	private void setCell(Coordinates coordinates, Cell cell) {
+		this.cells[coordinates.getX()][coordinates.getY()] = cell;
+	}
+	// Overload for special Tracer cells
+	private void setCell(Tracer cell) {
+		Coordinates coordinates = cell.getCoordinates();
 		this.cells[coordinates.getX()][coordinates.getY()] = cell;
 	}
 	private Cell getCell(Coordinates coordinates) {
@@ -100,19 +105,49 @@ public class Labyrinth {
 		}
 	}
 	
+	// Magnetism 
+	private double determineXMagnetism(int y, Distance distance) {
+		double fraction = (double)distance.horizontal() / (double)distance.vertical();
+		return Math.round(fraction*y);
+	}
+	
+	private double determineYMagnetism(int x, Distance distance) {
+		double fraction = (double)distance.vertical() / (double)distance.horizontal();
+		return Math.round(fraction*x);
+	}
+	
+	// Change the direction
+	private void changeDirection(Distance distance, Tracer tracer) {
+		Random random = new Random();
+		if(random.nextBoolean()) {
+			if(distance.endIsBeforeStartY()) {
+				tracer.headFor(Direction.DOWN);
+			}else {
+				tracer.headFor(Direction.UP);
+			}
+		}else {
+			if(!distance.endIsBeforeStartX()) {
+				tracer.headFor(Direction.LEFT);
+			}else {
+				tracer.headFor(Direction.RIGHT);
+			}
+		}
+	}
+	
 	// Create paths inside the labyrinth
 	private void addPaths() {
 		// Contains all the branches
 		ArrayList<Tracer> branches = new ArrayList<Tracer>();
-		Random random = new Random();
 		
-		// Add the first Tracer
-		Tracer primaryTracer = new Tracer(this.start);
+		// Add the first Tracer which coordinates are the same as the start point
+		Tracer primaryTracer = new Tracer(this.start.clone());
 		branches.add(primaryTracer);
 
 		Distance distance = new Distance(this.start, this.goal);
 		
+		
 		// Search the first direction to take
+		Random random = new Random();
 		if(random.nextBoolean()) {
 			if(distance.endIsBeforeStartY()) {
 				primaryTracer.headFor(Direction.DOWN);
@@ -126,6 +161,26 @@ public class Labyrinth {
 				primaryTracer.headFor(Direction.RIGHT);
 			}
 		}
+		
+		
+		for (int i = 0; i < 50; i++) {
+			primaryTracer.move(this.width, this.height);
+			
+			// Just in case
+			if(primaryTracer.hasDifferentCoordinates(this.start)) {
+				// Adding it to the table
+				this.setCell(primaryTracer);
+			}
+			changeDirection(distance, primaryTracer);
+		}
+		
+		/*
+		for (int i = 1; i < distance.absHorizontal(); i++) {
+		 
+			System.out.println(determineYMagnetism(i, distance));
+		}
+		*/
+		
 		
 		System.out.println(primaryTracer.getMoveX()+" : "+primaryTracer.getMoveY());
 		

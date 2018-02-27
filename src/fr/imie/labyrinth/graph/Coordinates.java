@@ -31,5 +31,10 @@ public class Coordinates {
 	}
 	
 	
+	public Coordinates clone() {
+		return new Coordinates(this.x, this.y);
+	}
+	
+	
 	
 }
