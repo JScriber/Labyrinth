@@ -1,6 +1,7 @@
 package fr.imie.labyrinth.launcher;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Labyrinth {
 	private int width;
@@ -89,10 +90,33 @@ public class Labyrinth {
 	private void addPaths() {
 		// Contains all the branches
 		ArrayList<Tracer> branches = new ArrayList<Tracer>();
-		branches.add(new Tracer(this.start));
+		Random random = new Random();
+		
+		// Add the first Tracer
+		Tracer primaryTracer = new Tracer(this.start);
+		branches.add(primaryTracer);
 
 		int gapX = -1*(this.start.getX() - this.goal.getX());
 		int gapY = this.start.getY() - this.goal.getY();
+		
+		// Search the first direction to take
+		if(random.nextBoolean()) {
+			if(gapY < 0) {
+				primaryTracer.headFor(Direction.DOWN);
+			}else {
+				primaryTracer.headFor(Direction.UP);
+			}
+		}else {
+			if(gapX < 0) {
+				primaryTracer.headFor(Direction.LEFT);
+			}else {
+				primaryTracer.headFor(Direction.RIGHT);
+			}
+		}
+		
+		System.out.println(primaryTracer.getMoveX()+" : "+primaryTracer.getMoveY());
+		
+		
 		
 		
 		System.out.println("Distance(X:"+gapX+" Y:"+gapY+")");

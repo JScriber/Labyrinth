@@ -45,4 +45,12 @@ public class Tracer extends Cell {
 		}
 	}
 	
+	// Access the moveX / moveY from the outside
+	public int getMoveX() {
+		return this.moveX;
+	}
+	public int getMoveY() {
+		return this.moveY;
+	}
+	
 }
