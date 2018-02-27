@@ -86,7 +86,7 @@ public class Labyrinth {
 		for(i = 0; i < this.width; i++) {
 			for(j = 0; j < this.height; j++) {
 				Cell targetedCell = this.getCell(new Coordinates(i, j));
-				labyrinth = labyrinth.concat(targetedCell.getGlyph());
+				labyrinth = labyrinth.concat(targetedCell.getSymbol());
 			}
 			labyrinth = labyrinth.concat("\n");
 		}

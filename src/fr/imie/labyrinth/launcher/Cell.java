@@ -1,13 +1,13 @@
 package fr.imie.labyrinth.launcher;
 
 public class Cell {
-	private String glyph = "";
+	private String symbol = "";
 	
 	public Cell(String glyph) {
-		this.glyph = glyph;
+		this.symbol = glyph;
 	}
 	
-	public String getGlyph() {
-		return this.glyph;
+	public String getSymbol() {
+		return this.symbol;
 	}
 }
