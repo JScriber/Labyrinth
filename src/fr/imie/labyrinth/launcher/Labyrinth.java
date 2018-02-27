@@ -87,6 +87,7 @@ public class Labyrinth {
 	
 	// Create paths inside the labyrinth
 	private void addPaths() {
+		// Contains all the branches
 		ArrayList<Tracer> branches = new ArrayList<Tracer>();
 		
 	}
