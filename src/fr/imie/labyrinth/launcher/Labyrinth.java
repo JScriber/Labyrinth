@@ -1,7 +1,5 @@
 package fr.imie.labyrinth.launcher;
 
-import java.util.Random;
-
 public class Labyrinth {
 	private int width;
 	private int height;
