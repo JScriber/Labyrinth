@@ -54,14 +54,25 @@ public class Labyrinth {
 	// Adds the goal point of the game
 	private void addGoalPoint() {
 		Coordinates randomPlace;
-		// Makes sure we aren't overwriting the Start point.
-		// (it wouldn't make sense...)
-		do {
-			randomPlace = randomPoint();
-		} while(this.getCell(randomPlace) instanceof Start);
+		Distance distance;
+		int distanceRatio = 4;
 		
-		// Adds it to the instance
-		this.goal = randomPlace;
+		
+		// Makes sure the distance between the points is great
+		do {
+			// Makes sure we aren't overwriting the Start point.
+			// (it wouldn't make sense...)
+			do {
+				randomPlace = randomPoint();
+			} while(this.getCell(randomPlace) instanceof Start);
+			
+			// Adds it to the instance
+			this.goal = randomPlace;
+
+			distance = new Distance(this.start, this.goal);
+		}while(distance.horizontal() < this.width/distanceRatio
+				 || distance.vertical() < this.height/distanceRatio);
+		
 		
 		// Adds it to the table
 		this.setCell(randomPlace, new Goal());

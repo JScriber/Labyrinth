@@ -5,9 +5,9 @@ public class Distance {
 	private int vertical;
 	
 	public Distance(Coordinates start, Coordinates end) {
-		// Can return negative number
-		this.horizontal = -1*(start.getX() - end.getX());
-		this.vertical = start.getY() - end.getY();
+		// Need to handle negative values (i have to say how the points are)
+		this.horizontal = Math.abs((start.getX() - end.getX()));
+		this.vertical = Math.abs(start.getY() - end.getY());
 	}
 	
 
