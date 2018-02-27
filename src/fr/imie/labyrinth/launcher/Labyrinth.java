@@ -1,5 +1,7 @@
 package fr.imie.labyrinth.launcher;
 
+import java.util.ArrayList;
+
 public class Labyrinth {
 	private int width;
 	private int height;
@@ -21,6 +23,9 @@ public class Labyrinth {
 		// Add random start and goal
 		this.addStartPoint();
 		this.addGoalPoint();
+		
+		// Add the paths
+		this.addPaths();
 	}
 	
 	
@@ -80,6 +85,14 @@ public class Labyrinth {
 		}
 	}
 	
+	// Create paths inside the labyrinth
+	private void addPaths() {
+		ArrayList<Tracer> branches = new ArrayList<Tracer>();
+		
+	}
+	
+	
+	// Used to print into the file 
 	@Override
 	public String toString() {
 		String labyrinth = "";

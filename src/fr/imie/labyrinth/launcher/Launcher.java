@@ -24,6 +24,7 @@ public class Launcher {
 		System.out.println(laby);
 	}
 	
+	
 	// Multiple labyrinth part
 	public static void multipleLabyrinth(int numberOfLabyrinth, int width, int height, String archive) {
 		System.out.println("Multiple labyrinths");
@@ -34,8 +35,8 @@ public class Launcher {
 			fileName = "labyrinth"+i+".laby";
 			simpleLabyrinth(width, height, fileName);
 		}
-		// Create the archive
 		
+		// Create the archive (see ZipOutputStream)
 		// Moves the files into the archive
 		
 	}
