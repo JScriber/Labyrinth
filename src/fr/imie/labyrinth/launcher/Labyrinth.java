@@ -1,37 +1,81 @@
 package fr.imie.labyrinth.launcher;
 
+import java.util.Random;
+
 public class Labyrinth {
 	private int width;
 	private int height;
+	private Coordinates start;
+	private Coordinates goal;
 	
 	private Cell[][] cells;
+	
 	
 	public Labyrinth(int width, int height) {
 		this.width = width;
 		this.height = height;
 		// Creating an empty labyrinth
-		this.cells = new Cell[height][width];
+		this.cells = new Cell[width][height];
 		
 		// Filling it with walls
 		this.fillWithWalls();
+		
+		// Add random start and goal
+		this.addStartPoint();
+		this.addGoalPoint();
 	}
 	
+	
+	// Return random coordinates within the labyrinth
+	private Coordinates randomPoint() {
+		int x = Coordinates.randomBetween(1, this.width-1);
+		int y = Coordinates.randomBetween(1, this.height-1);
+		
+		return new Coordinates(x, y);
+	}
+	
+	// Adds the start point of the game
+	private void addStartPoint() {
+		Coordinates randomPlace = randomPoint();
+		// Adds it to the instance
+		this.start = randomPlace;
+		
+		// Adds it to the table
+		this.setCell(randomPlace, new Start());
+	}
+	
+	// Adds the goal point of the game
+	private void addGoalPoint() {
+		Coordinates randomPlace;
+		do {
+			randomPlace = randomPoint();
+		} while(this.getCell(randomPlace) instanceof Start);
+		
+		// Adds it to the instance
+		this.goal = randomPlace;
+		
+		// Adds it to the table
+		this.setCell(randomPlace, new Goal());
+	}
+	
+	
 	// Modify the cells
-	private void setCell(int x, int y, Cell cell) {
-		this.cells[x][y] = cell;
+	private void setCell(Coordinates coordinates, Cell cell) {
+		this.cells[coordinates.getX()][coordinates.getY()] = cell;
 	}
-	private Cell getCell(int x, int y) {
-		return cells[x][y];
+	private Cell getCell(Coordinates coordinates) {
+		return cells[coordinates.getX()][coordinates.getY()];
 	}
+	
 	
 	// Fills with wall only
 	private void fillWithWalls() {
 		int i, j;
 		Wall wall = new Wall();
 		
-		for(i = 0; i < this.height; i++) {
-			for(j = 0; j < this.width; j++) {
-				this.setCell(i, j, wall);
+		for(i = 0; i < this.width; i++) {
+			for(j = 0; j < this.height; j++) {
+				this.setCell(new Coordinates(i, j), wall);
 			}
 		}
 	}
@@ -41,9 +85,9 @@ public class Labyrinth {
 		String labyrinth = "";
 		int i, j;
 		// Returns the layrinth
-		for(i = 0; i < this.height; i++) {
-			for(j = 0; j < this.width; j++) {
-				Cell targetedCell = this.getCell(i, j);
+		for(i = 0; i < this.width; i++) {
+			for(j = 0; j < this.height; j++) {
+				Cell targetedCell = this.getCell(new Coordinates(i, j));
 				labyrinth = labyrinth.concat(targetedCell.getGlyph());
 			}
 			labyrinth = labyrinth.concat("\n");

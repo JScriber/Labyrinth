@@ -1,5 +1,7 @@
 package fr.imie.labyrinth.launcher;
 
+import java.util.Random;
+
 public class Coordinates {
 	private int x;
 	private int y;
@@ -7,6 +9,11 @@ public class Coordinates {
 	public Coordinates(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	// Random between
+	public static int randomBetween(int min, int max) {
+		return new Random().nextInt(max-min)+min;
 	}
 
 	// Getters and setters
