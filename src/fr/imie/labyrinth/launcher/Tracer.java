@@ -1,5 +1,7 @@
 package fr.imie.labyrinth.launcher;
 
+import fr.imie.labyrinth.graph.Coordinates;
+
 public class Tracer extends Cell {
 	// Only cell where the coordinates really matter
 	private Coordinates coordinates;

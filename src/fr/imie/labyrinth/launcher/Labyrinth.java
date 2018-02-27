@@ -3,6 +3,9 @@ package fr.imie.labyrinth.launcher;
 import java.util.ArrayList;
 import java.util.Random;
 
+import fr.imie.labyrinth.graph.Coordinates;
+import fr.imie.labyrinth.graph.Distance;
+
 public class Labyrinth {
 	private int width;
 	private int height;
@@ -96,18 +99,17 @@ public class Labyrinth {
 		Tracer primaryTracer = new Tracer(this.start);
 		branches.add(primaryTracer);
 
-		int gapX = -1*(this.start.getX() - this.goal.getX());
-		int gapY = this.start.getY() - this.goal.getY();
+		Distance distance = new Distance(this.start, this.goal);
 		
 		// Search the first direction to take
 		if(random.nextBoolean()) {
-			if(gapY < 0) {
+			if(distance.vertical() < 0) {
 				primaryTracer.headFor(Direction.DOWN);
 			}else {
 				primaryTracer.headFor(Direction.UP);
 			}
 		}else {
-			if(gapX < 0) {
+			if(distance.horizontal() < 0) {
 				primaryTracer.headFor(Direction.LEFT);
 			}else {
 				primaryTracer.headFor(Direction.RIGHT);
@@ -116,10 +118,7 @@ public class Labyrinth {
 		
 		System.out.println(primaryTracer.getMoveX()+" : "+primaryTracer.getMoveY());
 		
-		
-		
-		
-		System.out.println("Distance(X:"+gapX+" Y:"+gapY+")");
+		System.out.println("Distance(X:"+distance.horizontal()+" Y:"+distance.vertical()+")");
 	}
 	
 	

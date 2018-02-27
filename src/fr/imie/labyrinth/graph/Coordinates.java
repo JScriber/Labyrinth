@@ -1,4 +1,4 @@
-package fr.imie.labyrinth.launcher;
+package fr.imie.labyrinth.graph;
 
 import java.util.Random;
 
