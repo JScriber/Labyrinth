@@ -1,6 +1,7 @@
 package fr.imie.labyrinth.launcher;
 
 import fr.imie.labyrinth.exceptions.MissingArgumentsException;
+import fr.imie.labyrinth.exceptions.TooHighNumberException;
 
 public class Launcher {
 	//  Simple labyrinth part
@@ -36,11 +37,14 @@ public class Launcher {
 	}
 	
 	// Tests at multiple levels if the given parameters suit our needs
-	public static void checkParameters(String [] args) throws MissingArgumentsException {
+	public static void checkParameters(String [] args) throws MissingArgumentsException, TooHighNumberException {
 		int numberOfArguments = args.length;
 		
 		if(numberOfArguments != 0) {
 			final String complexity = args[0].toLowerCase();
+			// Safety
+			int maxLimit = 500;
+			String limitReached = "You reached the limit of "+maxLimit+".\nThis is a safety as your memory can be quickly overloaded.";
 			
 			// Checks if everything is given by the user
 			switch (complexity) {
@@ -53,6 +57,9 @@ public class Launcher {
 						if(checkIfInteger(args[2])) {
 							int width = Integer.parseInt(args[1]);
 							int height = Integer.parseInt(args[2]);
+							if(width > maxLimit || height > maxLimit) {
+								throw new TooHighNumberException(limitReached);
+							}
 							
 							simpleLabyrinth(width, height, args[3]);
 						}else {
@@ -73,6 +80,9 @@ public class Launcher {
 								int numberOfLabyrinth = Integer.parseInt(args[1]);
 								int width = Integer.parseInt(args[2]);
 								int height = Integer.parseInt(args[3]);
+								if(width > maxLimit || height > maxLimit || numberOfLabyrinth > maxLimit) {
+									throw new TooHighNumberException(limitReached);
+								}
 							
 								multipleLabyrinth(numberOfLabyrinth, width, height, args[4]);
 							}else {
@@ -100,6 +110,8 @@ public class Launcher {
 			checkParameters(args);
 		} catch (MissingArgumentsException e) {
 			// Displays what's wrong
+			System.out.println(e.getError());
+		} catch (TooHighNumberException e) {
 			System.out.println(e.getError());
 		}
 	}
