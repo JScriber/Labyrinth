@@ -114,13 +114,13 @@ public class Labyrinth {
 		
 		// Search the first direction to take
 		if(random.nextBoolean()) {
-			if(distance.vertical() < 0) {
+			if(distance.endIsBeforeStartY()) {
 				primaryTracer.headFor(Direction.DOWN);
 			}else {
 				primaryTracer.headFor(Direction.UP);
 			}
 		}else {
-			if(distance.horizontal() < 0) {
+			if(!distance.endIsBeforeStartX()) {
 				primaryTracer.headFor(Direction.LEFT);
 			}else {
 				primaryTracer.headFor(Direction.RIGHT);
