@@ -90,9 +90,12 @@ public class Labyrinth {
 		// Contains all the branches
 		ArrayList<Tracer> branches = new ArrayList<Tracer>();
 		branches.add(new Tracer(this.start));
+
+		int gapX = -1*(this.start.getX() - this.goal.getX());
+		int gapY = this.start.getY() - this.goal.getY();
 		
-		int gapX = this.start.getX() - this.goal.getX();
-		System.out.println(gapX);
+		
+		System.out.println("Distance(X:"+gapX+" Y:"+gapY+")");
 	}
 	
 	
