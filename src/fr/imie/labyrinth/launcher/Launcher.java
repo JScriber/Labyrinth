@@ -9,8 +9,7 @@ import fr.imie.labyrinth.exceptions.TooHighNumberException;
 public class Launcher {
 	//  Simple labyrinth part
 	public static void simpleLabyrinth(int width, int height, String file) {
-		// Inverted height and width for proper displaying (the array makes it rotated)
-		Labyrinth laby = new Labyrinth(height, width);
+		Labyrinth laby = new Labyrinth(width, height);
 
 		// Create a file and put it into
 		try{

@@ -89,7 +89,10 @@ public class Labyrinth {
 	private void addPaths() {
 		// Contains all the branches
 		ArrayList<Tracer> branches = new ArrayList<Tracer>();
+		branches.add(new Tracer(this.start));
 		
+		int gapX = this.start.getX() - this.goal.getX();
+		System.out.println(gapX);
 	}
 	
 	
@@ -99,9 +102,9 @@ public class Labyrinth {
 		String labyrinth = "";
 		int i, j;
 		// Returns the layrinth
-		for(i = 0; i < this.width; i++) {
-			for(j = 0; j < this.height; j++) {
-				Cell targetedCell = this.getCell(new Coordinates(i, j));
+		for(i = 0; i < this.height; i++) {
+			for(j = 0; j < this.width; j++) {
+				Cell targetedCell = this.getCell(new Coordinates(j, i));
 				labyrinth = labyrinth.concat(targetedCell.getSymbol());
 			}
 			labyrinth = labyrinth.concat("\n");
