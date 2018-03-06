@@ -4,7 +4,9 @@ import fr.imie.labyrinth.graph.Coordinates;
 
 public class Cell {
 	private Coordinates coordinates;
-	
+
+	private boolean start;
+	private boolean end;
 	private Wall leftWall, rightWall, topWall, bottomWall;
 	private boolean used;
 	
@@ -19,6 +21,9 @@ public class Cell {
 		this.rightWall = rightWall;
 		this.topWall = topWall;
 		this.bottomWall = bottomWall;
+		
+		this.start = false;
+		this.end = false;
 		
 		// Set the activation of the cell to false
 		this.used = false;
@@ -76,6 +81,24 @@ public class Cell {
 	}
 	public int getY() {
 		return this.coordinates.getY();
+	}	
+	
+	// Start cell
+	public void defineAsStart() {
+		this.start = true;
 	}
+	public boolean isTheStart() {
+		return this.start;
+	}
+	
+	// End cell
+	public void defineAsEnd() {
+		this.end = true;
+	}
+	public boolean isTheEnd() {
+		return this.end;
+	}
+	
+	
 	
 }
