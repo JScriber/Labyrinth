@@ -21,6 +21,7 @@ public class Launcher {
 		}
 		// Displays it into the console as well
 		System.out.println(laby);
+		
 	}
 	
 	
