@@ -1,7 +1,10 @@
 package fr.imie.labyrinth.launcher;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.zip.*;
 
 import fr.imie.labyrinth.exceptions.MissingArgumentsException;
 import fr.imie.labyrinth.exceptions.TooHighNumberException;
@@ -26,19 +29,24 @@ public class Launcher {
 	
 	
 	// Multiple labyrinth part
-	public static void multipleLabyrinth(int numberOfLabyrinth, int width, int height, String archive) {
-		System.out.println("Multiple labyrinths");
-		
+	public static void multipleLabyrinth(int numberOfLabyrinth, int width, int height, String archive) throws Exception {
+		// Create the archive
+        String archiveName = "labyrinth.zip";
+
+        ZipOutputStream out = new ZipOutputStream(
+                new FileOutputStream(System.getProperty("user.dir")+"/"+archiveName)
+        );
+
+
 		// Will basically call labyrinth several times
-		String fileName = "";
+		String fileName;
 		for(int i = 1; i <= numberOfLabyrinth; i++) {
 			fileName = "labyrinth"+i+".laby";
-			simpleLabyrinth(width, height, fileName);
+
+            ZipEntry entry = new ZipEntry(fileName);
+            out.putNextEntry(entry);
 		}
-		
-		// Create the archive (see ZipOutputStream)
-		// Moves the files into the archive
-		
+		out.close();
 	}
 	
 	// Checks if the supposed numbered values are really numbers.
@@ -99,7 +107,12 @@ public class Launcher {
 									throw new TooHighNumberException(limitReached);
 								}
 							
-								multipleLabyrinth(numberOfLabyrinth, width, height, args[4]);
+								try
+                                {
+                                    multipleLabyrinth(numberOfLabyrinth, width, height, args[4]);
+                                } catch (Exception e){
+                                    System.out.println("Couldn't create an archive.");
+                                }
 							}else {
 								throw new MissingArgumentsException("Given height is not a number.");
 							}
