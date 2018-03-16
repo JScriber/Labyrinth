@@ -9,7 +9,7 @@ import fr.imie.labyrinth.exceptions.TooHighNumberException;
 public class Launcher {
 	//  Simple labyrinth part
 	public static void simpleLabyrinth(int width, int height, String file) {
-		Labyrinth laby = new Labyrinth(width, height);
+		Maze laby = new Maze(width, height);
 
 		// Create a file and put it into
 		try{
