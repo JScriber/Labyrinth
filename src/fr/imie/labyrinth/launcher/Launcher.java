@@ -45,6 +45,16 @@ public class Launcher {
 
             ZipEntry entry = new ZipEntry(fileName);
             out.putNextEntry(entry);
+
+            int len;
+            Maze maze = new Maze(width, height);
+            String mazeString = maze.toString();
+            byte byteCode[] = mazeString.getBytes();
+
+            for (int j = 0; j < byteCode.length; j++) {
+                out.write(byteCode[j]);
+            }
+            out.closeEntry();
 		}
 		out.close();
 	}
