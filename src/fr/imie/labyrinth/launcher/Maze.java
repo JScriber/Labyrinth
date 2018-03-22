@@ -210,10 +210,10 @@ public class Maze {
         */
 
 		// Really displaying
-		String wall = "██";
-		String lane = "  ";
-		String startPoint = "S.";
-		String endPoint = "G.";
+		String wall = "X";
+		String lane = "_";
+		String startPoint = "S";
+		String endPoint = "G";
 
 		String render = "";
 
