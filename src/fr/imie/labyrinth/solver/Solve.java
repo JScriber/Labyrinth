@@ -1,6 +1,8 @@
 package fr.imie.labyrinth.solver;
 
 import fr.imie.labyrinth.launcher.Cell;
+import fr.imie.labyrinth.launcher.Maze;
+import fr.imie.labyrinth.launcher.Wall;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,17 +30,24 @@ public class Solve {
         return textMaze;
     }
 
+    // Breaks the wall if the symbol is equal
+    public static void wallBreaker(String symbol, Wall cellWall){
+
+        // Defines what is a broken wall
+        String brokenWall = "_";
+
+        if(symbol.equals(brokenWall)) {
+            cellWall.breaks();
+        }
+    }
+
     // Gets the maze as an array of Cells
-    public static Cell[][] getMaze(String fileName) throws OutOfMemoryError, IOException{
+    public static Maze getMaze(String fileName) throws OutOfMemoryError, IOException{
         int width, height, realWidth, realHeight;
         Cell maze[][];
 
         // Gets the maze (text)
         String textMaze = getStringMaze(fileName);
-
-        // @Debug
-        System.out.println(textMaze);
-        System.out.println("----");
 
         Dimension mazeDim = findWidthHeight(textMaze);
         width = mazeDim.getWidth();
@@ -48,8 +57,6 @@ public class Solve {
         realWidth = Math.round(width/2);
         realHeight = Math.round(height/2);
 
-        System.out.println(realWidth+" "+realHeight);
-
         // Prepares the new maze
         maze = new Cell[realWidth][realHeight];
 
@@ -58,16 +65,69 @@ public class Solve {
 
         // Iterates over the maze (two by two)
         int counter = 0;
+
+        int mazeX = 0;
+        int mazeY = 0;
+
         for (int i = width+1; i < textMaze.length(); i += 2) {
-            if(i%width != 0){
-                System.out.print(textMaze.charAt(i)+" ");
-            }else{
-                i += 2;
-                System.out.println();
+            String symbol = textMaze.charAt(i)+"";
+            // Note that symbol is either a _ or a S/G
+
+            Cell addedCell = new Cell(mazeX, mazeY);
+
+            // Find the walls
+            String testedSymbol;
+
+            // Left one
+            testedSymbol = textMaze.charAt(i-1)+"";
+            wallBreaker(testedSymbol, addedCell.getLeft());
+
+            // Right one
+            testedSymbol = textMaze.charAt(i+1)+"";
+            wallBreaker(testedSymbol, addedCell.getRight());
+
+            // Top one
+            if(mazeY > 0){
+                testedSymbol = textMaze.charAt(i-width)+"";
+                wallBreaker(testedSymbol, addedCell.getTop());
             }
 
+            // Bottom one
+            if(mazeY < realHeight){
+                testedSymbol = textMaze.charAt(i+width)+"";
+                wallBreaker(testedSymbol, addedCell.getBottom());
+            }
+
+            // Define as start or goal
+            if(symbol.equals("S")){
+                addedCell.defineAsStart();
+            }
+            if(symbol.equals("G")){
+                addedCell.defineAsGoal();
+            }
+
+            // Adds the cell
+            maze[mazeX][mazeY] = addedCell;
+
+            counter++;
+            // Moves inside the maze horizontally
+            mazeX++;
+
+            if(counter%realWidth == 0){
+                System.out.println();
+
+                // Moves inside the maze vertically
+                mazeY++;
+                mazeX = 0;
+
+                // Adds one to not get the first wall
+                i++;
+
+                // A row to skip the bottom walls
+                i += width;
+            }
         }
-        return maze;
+        return new Maze(maze);
     }
 
     // Find out the size of the maze
@@ -95,7 +155,10 @@ public class Solve {
 
         // Gets the maze
         try{
-            Cell maze[][] = getMaze("resolv.laby");
+            Maze receivedMaze = getMaze("resolv.laby");
+
+            System.out.println(receivedMaze);
+
 
             // Enters into the solver
         } catch (OutOfMemoryError e){
@@ -104,4 +167,5 @@ public class Solve {
             System.out.println("Could't access to the file.");
         }
     }
+
 }

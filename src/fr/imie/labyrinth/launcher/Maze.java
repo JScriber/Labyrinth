@@ -23,6 +23,14 @@ public class Maze {
 		this.addStartGoal(0.75F);
 	}
 
+	// Constructor for solving
+	public Maze(Cell[][] maze){
+		this.maze = maze;
+
+		this.width = maze.length;
+		this.height = maze[0].length;
+	}
+
 	// Initializing functions
 	private void fillWithCells(){
 		for (int i = 0; i < this.width; i++) {
