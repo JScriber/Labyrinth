@@ -3,6 +3,7 @@ package fr.imie.labyrinth.solver;
 import fr.imie.labyrinth.launcher.Cell;
 import fr.imie.labyrinth.launcher.Maze;
 import fr.imie.labyrinth.launcher.Wall;
+import fr.imie.labyrinth.symbol.Symbol;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,7 +35,7 @@ public class Solve {
     public static void wallBreaker(String symbol, Wall cellWall){
 
         // Defines what is a broken wall
-        String brokenWall = "_";
+        String brokenWall = Symbol.LANE.toString();
 
         if(symbol.equals(brokenWall)) {
             cellWall.breaks();
@@ -99,10 +100,10 @@ public class Solve {
             }
 
             // Define as start or goal
-            if(symbol.equals("S")){
+            if(symbol.equals(Symbol.START.toString())){
                 addedCell.defineAsStart();
             }
-            if(symbol.equals("G")){
+            if(symbol.equals(Symbol.END.toString())){
                 addedCell.defineAsGoal();
             }
 

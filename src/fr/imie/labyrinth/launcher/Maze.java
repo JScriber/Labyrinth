@@ -1,5 +1,7 @@
 package fr.imie.labyrinth.launcher;
 
+import fr.imie.labyrinth.symbol.Symbol;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -217,11 +219,11 @@ public class Maze {
         System.out.println();
         */
 
-		// Really displaying
-		String wall = "X";
-		String lane = "_";
-		String startPoint = "S";
-		String endPoint = "G";
+		// Get the associated strings
+		String wall = Symbol.WALL.toString();
+		String lane = Symbol.LANE.toString();
+		String startPoint = Symbol.START.toString();
+		String endPoint = Symbol.END.toString();
 
 		String render = "";
 
