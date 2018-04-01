@@ -4,7 +4,7 @@ public class Cell {
 	private boolean isVisited;
 
 	private int x, y;
-	private boolean start, goal;
+	private boolean start, goal, quickestPath;
 	private Wall left, right, top, bottom;
 
 	public Cell(int x, int y){
@@ -23,6 +23,9 @@ public class Cell {
 		// Status of the cell
 		this.start = false;
 		this.goal = false;
+
+		// Says it is a part of the quickest path
+		this.quickestPath = false;
 	}
 
 	public int getX(){
@@ -61,6 +64,10 @@ public class Cell {
 	public void defineAsGoal(){
 		this.goal = true;
 	}
+	public void memberOfQuickPath(){
+		this.quickestPath = true;
+	}
+
 	// Getters for status
 	public boolean isStartPoint(){
 		return this.start;
@@ -68,4 +75,5 @@ public class Cell {
 	public boolean isGoalPoint(){
 		return this.goal;
 	}
+	public boolean isMemberOfQuickPath(){ return this.quickestPath; }
 }
