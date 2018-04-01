@@ -226,6 +226,7 @@ public class Maze {
 		String endPoint = Symbol.END.toString();
 
 		String render = "";
+		String backspace = "\n";
 
 		for (int i = 0; i < this.height; i++) {
 			// Top bar
@@ -243,7 +244,7 @@ public class Maze {
 					render = render.concat(wall);
 				}
 			}
-			render = render.concat("\n");
+			render = render.concat(backspace);
 
 			// Left bar
 			for (int j = 0; j < this.width; j++) {
@@ -267,7 +268,7 @@ public class Maze {
 					render = render.concat(wall);
 				}
 			}
-			render = render.concat("\n");
+			render = render.concat(backspace);
 
 			// Bottom bar
 			if(i == this.height-1){
@@ -278,7 +279,7 @@ public class Maze {
 						render = render.concat(wall);
 					}
 				}
-				render = render.concat("\n");
+				render = render.concat(backspace);
 			}
 		}
 		return render;

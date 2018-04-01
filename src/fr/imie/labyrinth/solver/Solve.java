@@ -11,6 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import fr.imie.labyrinth.exceptions.IsNotMazeException;
+
 public class Solve {
 
     // Gets the maze as a String
@@ -43,7 +45,7 @@ public class Solve {
     }
 
     // Gets the maze as an array of Cells
-    public static Maze getMaze(String fileName) throws OutOfMemoryError, IOException{
+    public static Maze getMaze(String fileName) throws IsNotMazeException, OutOfMemoryError, IOException{
         int width, height, realWidth, realHeight;
         Cell maze[][];
 
@@ -63,6 +65,11 @@ public class Solve {
 
         // Wipes out the useless and irritating \n
         textMaze = textMaze.replaceAll("\n", "");
+
+        // Tests if it contains only handled characters
+        if(!containsHandledCharacters(textMaze)){
+            throw new IsNotMazeException("An unhandled character has been found!");
+        }
 
         // Iterates over the maze (two by two)
         int counter = 0;
@@ -132,7 +139,7 @@ public class Solve {
     }
 
     // Find out the size of the maze
-    public static Dimension findWidthHeight(String maze){
+    public static Dimension findWidthHeight(String maze) throws IsNotMazeException {
         String character = "";
         int counter = 0, width, height;
 
@@ -144,15 +151,61 @@ public class Solve {
             }
             counter++;
         }
+        if(counter == maze.length()){
+            throw new IsNotMazeException("A single line is not a maze.");
+        }
+
         width = counter;
         height = (maze.length()-1)/counter;
+
+        //Security test
+        int loop = 0;
+        for (int i = width; i < maze.length(); i += width+1) {
+            character = maze.charAt(i)+"";
+
+            if(!character.equals("\n")){
+                throw new IsNotMazeException("Not rectangle maze.");
+            }
+            loop++;
+        }
+        // Height test
+        if(loop != height){
+            throw new IsNotMazeException("Not rectangle maze.");
+        }
 
         return new Dimension(width, height);
     }
 
+    // Security test
+    public static boolean containsHandledCharacters(String testedString){
+        String[] authorizedValue = {
+                Symbol.END.toString(),
+                Symbol.START.toString(),
+                Symbol.LANE.toString(),
+                Symbol.WALL.toString()
+        };
+
+        for (int i = 0; i < testedString.length(); i++) {
+            String character = testedString.charAt(i)+"";
+            int counter = 0;
+
+            for (String value: authorizedValue) {
+                if(character.equals(value)) {
+                    counter++;
+                }
+            }
+            if(counter != 1){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    // Main will have to be moved inside the launcher :)
+    // The input will have to be handled
 
     public static void main(String[] args) {
-        // Needs to handle the input
 
         // Gets the maze
         try{
@@ -162,8 +215,10 @@ public class Solve {
 
 
             // Enters into the solver
-        } catch (OutOfMemoryError e){
+        } catch (OutOfMemoryError e) {
             System.out.println("The given file is too big.");
+        } catch (IsNotMazeException e){
+            System.out.println("The given file doesn't contain a maze.");
         } catch (IOException e){
             System.out.println("Could't access to the file.");
         }
