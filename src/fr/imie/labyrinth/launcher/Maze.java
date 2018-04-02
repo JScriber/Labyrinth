@@ -320,15 +320,15 @@ public class Maze {
 	@Override
 	public String toString() {
 		// Show the number of wall for
-        /*
+
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
-                System.out.print(nbrOfWalls(maze[j][i]));
+                System.out.println(j+" "+i+" has "+nbrOfWalls(maze[j][i])+" walls");
             }
             System.out.println();
         }
         System.out.println();
-        */
+
 
 		// Get the associated strings
 		String wall = Symbol.WALL.toString();
@@ -347,7 +347,11 @@ public class Maze {
 
 				render = render.concat(wall);
 				if(displayedCell.getTop().isBroken()){
-					render = render.concat(lane);
+					if(displayedCell.isMemberOfQuickPath()){
+						render = render.concat(quickPath);
+					}else{
+						render = render.concat(lane);
+					}
 				}else{
 					render = render.concat(wall);
 				}
@@ -362,7 +366,11 @@ public class Maze {
 			for (int j = 0; j < this.width; j++) {
 				Cell displayedCell = maze[j][i];
 				if(displayedCell.getLeft().isBroken()){
-					render = render.concat(lane);
+					if(displayedCell.isMemberOfQuickPath()){
+						render = render.concat(quickPath);
+					}else{
+						render = render.concat(lane);
+					}
 				}else{
 					render = render.concat(wall);
 				}
