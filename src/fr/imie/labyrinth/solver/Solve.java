@@ -202,6 +202,7 @@ public class Solve {
     }
 
 
+
     // Main will have to be moved inside the launcher :)
     // The input will have to be handled
 
@@ -210,6 +211,8 @@ public class Solve {
         // Gets the maze
         try{
             Maze receivedMaze = getMaze("resolv.laby");
+
+            receivedMaze.solve(receivedMaze.getStartPoint());
 
             System.out.println(receivedMaze);
 

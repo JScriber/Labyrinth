@@ -31,6 +31,9 @@ public class Maze {
 
 		this.width = maze.length;
 		this.height = maze[0].length;
+
+		// Used for the solving
+		this.ariane = new ArrayList<>();
 	}
 
 	// Initializing functions
@@ -205,6 +208,114 @@ public class Maze {
 		return nbr;
 	}
 
+
+	// The following methods are chiefly used to solve the maze
+
+	public Cell getStartPoint(){
+		Cell testedCell;
+		for (int i = 0; i < this.width; i++) {
+			for (int j = 0; j < this.height; j++) {
+				testedCell = this.maze[i][j];
+				if(testedCell.isStartPoint()){
+					return testedCell;
+				}
+			}
+		}
+		return null;
+	}
+	// Returns the contiguous cells (walls are considered)
+	private ArrayList<Cell> getContiguousCells(Cell mainCell){
+		int x = mainCell.getX();
+		int y = mainCell.getY();
+
+		// Gets the neighboors
+		ArrayList<Cell> neighboors = this.getNeighboors(mainCell);
+
+		// Debug
+		System.out.println("Before : ");
+		for (int i = 0; i < neighboors.size(); i++) {
+			System.out.println(i+") "+neighboors.get(i).getX()+" "+neighboors.get(i).getY());
+		}
+
+		// Tests the adjacency
+		Cell treatedCell;
+		int posX, posY;
+		for (int i = 0; i < neighboors.size(); i++) {
+			treatedCell = neighboors.get(i);
+
+			posX = -1 * (x - treatedCell.getX());
+			posY = -1 * (y - treatedCell.getY());
+
+			if(posX == 1){
+				if(!mainCell.getRight().isBroken()){
+					neighboors.remove(i);
+				}
+			}else{
+				if(posX == -1){
+					if(!mainCell.getLeft().isBroken()){
+						neighboors.remove(i);
+					}
+				}
+			}
+
+			if(posY == 1){
+				if(!mainCell.getBottom().isBroken()){
+					neighboors.remove(i);
+				}
+			}else{
+				if(posY == -1){
+					if(!mainCell.getTop().isBroken()){
+						neighboors.remove(i);
+					}
+				}
+			}
+		}
+		// Only returns contiguous cells
+		return neighboors;
+	}
+
+	// Solves the maze
+	public void solve(Cell currentCell){
+		System.out.println("-----");
+		System.out.println("Tested : "+currentCell.getX()+" "+currentCell.getY());
+		currentCell.setAsVisited();
+
+		currentCell.setQuickPath(true);
+
+		// Get the neighboors
+		ArrayList<Cell> contiguousCells = getContiguousCells(currentCell);
+		if(!currentCell.isGoalPoint()){
+			if(contiguousCells.isEmpty()) {
+				currentCell.setQuickPath(false);
+
+				// Get back into the ariane string
+				Cell lastCell = ariane.get(ariane.size() - 1);
+				ariane.remove(ariane.size() - 1);
+
+				solve(lastCell);
+			}else{
+				// Debug
+
+				System.out.println("After : ");
+				for (int i = 0; i < contiguousCells.size(); i++) {
+					System.out.println(i+") "+contiguousCells.get(i).getX()+" "+contiguousCells.get(i).getY());
+				}
+
+
+				// Picks the next cell
+				int randomIndex = new Random().nextInt(contiguousCells.size());
+				Cell nextCell = contiguousCells.get(randomIndex);
+
+				// Adds the last cell to the ariane string
+				ariane.add(currentCell);
+
+				solve(nextCell);
+			}
+		}else{
+			System.out.println("Goal achieved");
+		}
+	}
+
 	// Displaying functions
 	@Override
 	public String toString() {
@@ -224,6 +335,7 @@ public class Maze {
 		String lane = Symbol.LANE.toString();
 		String startPoint = Symbol.START.toString();
 		String endPoint = Symbol.END.toString();
+		String quickPath = Symbol.QUICK.toString();
 
 		String render = "";
 		String backspace = "\n";
@@ -260,7 +372,11 @@ public class Maze {
 					if(displayedCell.isGoalPoint()){
 						render = render.concat(endPoint);
 					}else{
-						render = render.concat(lane);
+						if(displayedCell.isMemberOfQuickPath()){
+							render = render.concat(quickPath);
+						}else{
+							render = render.concat(lane);
+						}
 					}
 				}
 				// Right add

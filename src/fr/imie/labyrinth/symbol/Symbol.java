@@ -5,7 +5,8 @@ public enum Symbol {
     WALL ("X"),
     LANE ("_"),
     START ("S"),
-    END ("G");
+    END ("G"),
+    QUICK ("+");
 
     private String name;
 

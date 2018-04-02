@@ -64,8 +64,8 @@ public class Cell {
 	public void defineAsGoal(){
 		this.goal = true;
 	}
-	public void memberOfQuickPath(){
-		this.quickestPath = true;
+	public void setQuickPath(boolean status){
+		this.quickestPath = status;
 	}
 
 	// Getters for status
