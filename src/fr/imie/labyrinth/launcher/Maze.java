@@ -366,11 +366,7 @@ public class Maze {
 			for (int j = 0; j < this.width; j++) {
 				Cell displayedCell = maze[j][i];
 				if(displayedCell.getLeft().isBroken()){
-					if(displayedCell.isMemberOfQuickPath()){
-						render = render.concat(quickPath);
-					}else{
-						render = render.concat(lane);
-					}
+					render = render.concat(lane);
 				}else{
 					render = render.concat(wall);
 				}
