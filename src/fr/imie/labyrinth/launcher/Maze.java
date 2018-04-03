@@ -348,7 +348,16 @@ public class Maze {
 				render = render.concat(wall);
 				if(displayedCell.getTop().isBroken()){
 					if(displayedCell.isMemberOfQuickPath()){
-						render = render.concat(quickPath);
+
+						//render = render.concat(quickPath);
+
+						if(i != 0){
+							if(maze[j][i-1].isMemberOfQuickPath()){
+								render = render.concat(quickPath);
+							}else{
+								render = render.concat(lane);
+							}
+						}
 					}else{
 						render = render.concat(lane);
 					}
@@ -366,7 +375,14 @@ public class Maze {
 			for (int j = 0; j < this.width; j++) {
 				Cell displayedCell = maze[j][i];
 				if(displayedCell.getLeft().isBroken()){
-					render = render.concat(lane);
+					// By default the left-left wall are untouched
+					if(j != 0){
+						if(displayedCell.isMemberOfQuickPath() && maze[j-1][i].isMemberOfQuickPath()){
+							render = render.concat(quickPath);
+						}else{
+							render = render.concat(lane);
+						}
+					}
 				}else{
 					render = render.concat(wall);
 				}
