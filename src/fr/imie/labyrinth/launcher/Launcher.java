@@ -1,8 +1,8 @@
 package fr.imie.labyrinth.launcher;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.Enumeration;
+import java.util.Scanner;
 import java.util.zip.*;
 
 import fr.imie.labyrinth.exceptions.IsNotMazeException;
@@ -13,8 +13,10 @@ import fr.imie.labyrinth.solver.Solve;
 /*
 Args
 >>> simple 3 3 resolv.laby
+>>> multiple 3 3 3 labyrinth.zip
 
 >>> solver resolv.laby
+>>> solver labyrinth.zip
 */
 
 public class Launcher {
@@ -54,7 +56,6 @@ public class Launcher {
             ZipEntry entry = new ZipEntry(fileName);
             out.putNextEntry(entry);
 
-            int len;
             Maze maze = new Maze(width, height);
             String mazeString = maze.toString();
             byte byteCode[] = mazeString.getBytes();
@@ -87,8 +88,33 @@ public class Launcher {
 		}
 	}
 	// Solver for archive
+	// Snippet/convertor from stackoverflow
+	public static String convertInputStream(InputStream stream){
+		Scanner s = new Scanner(stream).useDelimiter("\\A");
+		String result = s.hasNext() ? s.next() : "";
+
+		return result;
+	}
 	public static void solveArchive(String fileName){
-		System.out.println("You asked a archive");
+		try
+		{
+			ZipFile zipFile = new ZipFile(System.getProperty("user.dir")+"/"+fileName);
+			Enumeration<? extends ZipEntry> entries = zipFile.entries();
+
+			while(entries.hasMoreElements()){
+				ZipEntry entry = entries.nextElement();
+				InputStream stream = zipFile.getInputStream(entry);
+
+				String maze = convertInputStream(stream);
+
+				System.out.println(maze);
+				System.out.println();
+
+				stream.close();
+			}
+		} catch (IOException e) {
+			System.out.println("Couldn't get " + fileName);
+		}
 	}
 
 	
