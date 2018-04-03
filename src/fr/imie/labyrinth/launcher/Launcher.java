@@ -1,13 +1,21 @@
 package fr.imie.labyrinth.launcher;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.zip.*;
 
+import fr.imie.labyrinth.exceptions.IsNotMazeException;
 import fr.imie.labyrinth.exceptions.MissingArgumentsException;
 import fr.imie.labyrinth.exceptions.TooHighNumberException;
+import fr.imie.labyrinth.solver.Solve;
+
+/*
+Args
+>>> simple 3 3 resolv.laby
+
+>>> solver resolv.laby
+*/
 
 public class Launcher {
 	//  Simple labyrinth part
@@ -58,6 +66,31 @@ public class Launcher {
 		}
 		out.close();
 	}
+
+	// Solver for files
+	public static void solveFile(String fileName){
+		try{
+			Maze receivedMaze = Solve.getMaze(fileName);
+
+			receivedMaze.solve(receivedMaze.getStartPoint());
+
+			System.out.println(receivedMaze);
+
+
+			// Enters into the solver
+		} catch (OutOfMemoryError e) {
+			System.out.println(fileName+" is too big.");
+		} catch (IsNotMazeException e){
+			System.out.println(fileName+" doesn't contain a maze.");
+		} catch (IOException e){
+			System.out.println("Could't access to "+fileName);
+		}
+	}
+	// Solver for archive
+	public static void solveArchive(String fileName){
+		System.out.println("You asked a archive");
+	}
+
 	
 	// Checks if the supposed numbered values are really numbers.
 	public static boolean checkIfInteger(String string) {
@@ -133,9 +166,20 @@ public class Launcher {
 						throw new MissingArgumentsException("Given number of labyrinth is not a number.");
 					}
 				break;
+				case "solver" :
+					if(numberOfArguments != 2) {
+						throw new MissingArgumentsException("You must follow : solver <file or archive>");
+					}
+					String givenFile = args[1];
+					if(givenFile.contains(".zip")){
+						solveArchive(givenFile);
+					}else{
+						solveFile(givenFile);
+					}
+				break;
 	
 				default:
-					throw new MissingArgumentsException("Invalid kind of labyrinth.");
+					throw new MissingArgumentsException("Invalid parameters.");
 			}
 		}else {
 			throw new MissingArgumentsException("You didn't give parameters.");

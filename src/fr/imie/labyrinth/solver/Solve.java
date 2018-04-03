@@ -202,29 +202,4 @@ public class Solve {
     }
 
 
-
-    // Main will have to be moved inside the launcher :)
-    // The input will have to be handled
-
-    public static void main(String[] args) {
-
-        // Gets the maze
-        try{
-            Maze receivedMaze = getMaze("resolv.laby");
-
-            receivedMaze.solve(receivedMaze.getStartPoint());
-
-            System.out.println(receivedMaze);
-
-
-            // Enters into the solver
-        } catch (OutOfMemoryError e) {
-            System.out.println("The given file is too big.");
-        } catch (IsNotMazeException e){
-            System.out.println("The given file doesn't contain a maze.");
-        } catch (IOException e){
-            System.out.println("Could't access to the file.");
-        }
-    }
-
 }
