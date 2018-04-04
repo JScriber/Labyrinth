@@ -68,15 +68,14 @@ public class Launcher {
 		out.close();
 	}
 
+
 	// Solver for files
 	public static void solveFile(String fileName){
 		try{
-			Maze receivedMaze = Solve.getMaze(fileName);
-
+			Maze receivedMaze = Solve.getMazeFromFile(fileName);
 			receivedMaze.solve(receivedMaze.getStartPoint());
 
 			System.out.println(receivedMaze);
-
 
 			// Enters into the solver
 		} catch (OutOfMemoryError e) {
@@ -100,17 +99,27 @@ public class Launcher {
 		{
 			ZipFile zipFile = new ZipFile(System.getProperty("user.dir")+"/"+fileName);
 			Enumeration<? extends ZipEntry> entries = zipFile.entries();
+			int numberOfLabyrinth = 1;
 
 			while(entries.hasMoreElements()){
 				ZipEntry entry = entries.nextElement();
 				InputStream stream = zipFile.getInputStream(entry);
 
-				String maze = convertInputStream(stream);
+				String textMaze = convertInputStream(stream);
+				try {
+					Maze receivedMaze = Solve.getMaze(textMaze);
+					receivedMaze.solve(receivedMaze.getStartPoint());
 
-				System.out.println(maze);
+					System.out.println("Maze "+numberOfLabyrinth+":");
+					System.out.println(receivedMaze);
+				}catch(IsNotMazeException e){
+					System.out.println("Maze number "+numberOfLabyrinth+" doesn't contain a maze.");
+				}
 				System.out.println();
 
 				stream.close();
+				// Used for the user
+				numberOfLabyrinth++;
 			}
 		} catch (IOException e) {
 			System.out.println("Couldn't get " + fileName);

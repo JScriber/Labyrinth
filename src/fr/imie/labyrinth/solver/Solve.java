@@ -44,13 +44,17 @@ public class Solve {
         }
     }
 
+    // Gets the maze from a file
+    public static Maze getMazeFromFile(String fileName) throws IsNotMazeException, OutOfMemoryError, IOException{
+        String textMaze = getStringMaze(fileName);
+
+        return getMaze(textMaze);
+    }
+
     // Gets the maze as an array of Cells
-    public static Maze getMaze(String fileName) throws IsNotMazeException, OutOfMemoryError, IOException{
+    public static Maze getMaze(String textMaze) throws IsNotMazeException, OutOfMemoryError {
         int width, height, realWidth, realHeight;
         Cell maze[][];
-
-        // Gets the maze (text)
-        String textMaze = getStringMaze(fileName);
 
         Dimension mazeDim = findWidthHeight(textMaze);
         width = mazeDim.getWidth();
@@ -68,7 +72,7 @@ public class Solve {
 
         // Tests if it contains only handled characters
         if(!containsHandledCharacters(textMaze)){
-            throw new IsNotMazeException("An unhandled character has been found!");
+            throw new IsNotMazeException("An not handled character has been found!");
         }
 
         // Iterates over the maze (two by two)
