@@ -8,6 +8,7 @@ import java.util.zip.*;
 import fr.imie.labyrinth.exceptions.IsNotMazeException;
 import fr.imie.labyrinth.exceptions.MissingArgumentsException;
 import fr.imie.labyrinth.exceptions.TooHighNumberException;
+import fr.imie.labyrinth.exceptions.NegativeNumberException;
 import fr.imie.labyrinth.solver.Solve;
 
 /*
@@ -142,7 +143,7 @@ public class Launcher {
 	}
 	
 	// Tests at multiple levels if the given parameters suit our needs
-	public static void checkParameters(String [] args) throws MissingArgumentsException, TooHighNumberException {
+	public static void checkParameters(String [] args) throws MissingArgumentsException, TooHighNumberException, NegativeNumberException {
 		int numberOfArguments = args.length;
 		
 		if(numberOfArguments != 0) {
@@ -164,6 +165,9 @@ public class Launcher {
 							int height = Integer.parseInt(args[2]);
 							if(width > maxLimit || height > maxLimit) {
 								throw new TooHighNumberException(limitReached);
+							}
+							if(width <= 0 || height <= 0) {
+								throw new NegativeNumberException("You gave a number inferior or equal to zero");
 							}
 							
 							simpleLabyrinth(width, height, args[3]);
@@ -187,6 +191,9 @@ public class Launcher {
 								int height = Integer.parseInt(args[3]);
 								if(width > maxLimit || height > maxLimit || numberOfLabyrinth > maxLimit) {
 									throw new TooHighNumberException(limitReached);
+								}
+								if(width <= 0 || height <= 0 || numberOfLabyrinth <= 0) {
+									throw new NegativeNumberException("You gave a number inferior or equal to zero");
 								}
 							
 								try
@@ -233,6 +240,8 @@ public class Launcher {
 			// Displays what's wrong
 			System.out.println(e.getError());
 		} catch (TooHighNumberException e) {
+			System.out.println(e.getError());
+		} catch (NegativeNumberException e) {
 			System.out.println(e.getError());
 		}
 	}
