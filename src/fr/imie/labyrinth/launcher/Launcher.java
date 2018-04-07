@@ -151,6 +151,7 @@ public class Launcher {
 			// Safety
 			int maxLimit = 500;
 			String limitReached = "You reached the limit of "+maxLimit+".\nThis is a safety as your memory can be quickly overloaded.";
+			String negativeWarning = "You gave a number inferior or equal to zero.";
 			
 			// Checks if everything is given by the user
 			switch (complexity) {
@@ -167,7 +168,7 @@ public class Launcher {
 								throw new TooHighNumberException(limitReached);
 							}
 							if(width <= 0 || height <= 0) {
-								throw new NegativeNumberException("You gave a number inferior or equal to zero");
+								throw new NegativeNumberException(negativeWarning);
 							}
 							
 							simpleLabyrinth(width, height, args[3]);
@@ -193,7 +194,7 @@ public class Launcher {
 									throw new TooHighNumberException(limitReached);
 								}
 								if(width <= 0 || height <= 0 || numberOfLabyrinth <= 0) {
-									throw new NegativeNumberException("You gave a number inferior or equal to zero");
+									throw new NegativeNumberException(negativeWarning);
 								}
 							
 								try
