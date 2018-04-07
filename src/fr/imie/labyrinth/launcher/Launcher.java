@@ -66,6 +66,9 @@ public class Launcher {
             out.closeEntry();
 		}
 		out.close();
+
+		// Final message to inform the user
+		System.out.println(numberOfLabyrinth+" labyrinths have been created inside "+archiveName+".");
 	}
 
 

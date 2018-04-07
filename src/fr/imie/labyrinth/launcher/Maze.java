@@ -58,6 +58,7 @@ public class Maze {
 		currentCell.setAsVisited();
 		// Get the neighboors
 		ArrayList<Cell> neighboors = getNeighboors(currentCell);
+
 		if(!mazeIsFull()){
 			if(neighboors.isEmpty()) {
 				// Get back into the ariane string
@@ -70,11 +71,6 @@ public class Maze {
 				int randomIndex = new Random().nextInt(neighboors.size());
 				Cell nextCell = neighboors.get(randomIndex);
 
-                /*
-                System.out.println(currentCell.getX()+" - "+currentCell.getY()+" has "+neighboors.size()+" neighboors and "+nbrOfWalls(currentCell)+" walls");
-                System.out.println("go to : "+nextCell.getX()+" - "+nextCell.getY());
-                */
-
 				// Adds the last cell to the ariane string
 				ariane.add(currentCell);
 
@@ -83,8 +79,6 @@ public class Maze {
 
 				process(nextCell);
 			}
-		}else{
-			System.out.println("Labyrinth generated");
 		}
 	}
 
