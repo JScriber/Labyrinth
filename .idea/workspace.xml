@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5a7831c-0cbc-4e69-87fc-c94362f772ad" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/fr/imie/labyrinth/solver/Solve.java" afterPath="$PROJECT_DIR$/src/fr/imie/labyrinth/solver/Solve.java" />
+      <change beforePath="$PROJECT_DIR$/labyrinth.zip" afterPath="$PROJECT_DIR$/labyrinth.zip" />
+      <change beforePath="$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Maze.java" afterPath="$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Maze.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +21,8 @@
       <file leaf-file-name="Launcher.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Launcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="108" column="55" lean-forward="false" selection-start-line="108" selection-start-column="55" selection-end-line="108" selection-end-column="55" />
+            <state relative-caret-position="259">
+              <caret line="235" column="22" lean-forward="false" selection-start-line="235" selection-start-column="12" selection-end-line="235" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -61,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Maze.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Maze.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Maze.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="57" column="35" lean-forward="true" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+            <state relative-caret-position="1497">
+              <caret line="302" column="9" lean-forward="false" selection-start-line="302" selection-start-column="9" selection-end-line="302" selection-end-column="9" />
               <folding>
                 <element signature="method#fillWithCells#0;class#Maze#0" expanded="false" />
                 <element signature="method#getRandomCell#0;class#Maze#0" expanded="false" />
@@ -87,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Solve.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Solve.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fr/imie/labyrinth/solver/Solve.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+            <state relative-caret-position="278">
+              <caret line="221" column="1" lean-forward="true" selection-start-line="221" selection-start-column="1" selection-end-line="221" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4557#4558#0" expanded="true" />
@@ -117,6 +118,8 @@
       <find>generated</find>
       <find>replace</find>
       <find>An not</find>
+      <find>System.out</find>
+      <find>Debug</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -136,9 +139,9 @@
         <option value="$PROJECT_DIR$/resolv.laby" />
         <option value="$PROJECT_DIR$/src/fr/imie/labyrinth/symbol/Symbol.java" />
         <option value="$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Cell.java" />
-        <option value="$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Maze.java" />
         <option value="$PROJECT_DIR$/src/fr/imie/labyrinth/solver/Solve.java" />
         <option value="$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Launcher.java" />
+        <option value="$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Maze.java" />
       </list>
     </option>
   </component>
@@ -264,7 +267,7 @@
       </extension>
       <option name="MAIN_CLASS_NAME" value="fr.imie.labyrinth.launcher.Launcher" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="solver resolv.laby" />
+      <option name="PROGRAM_PARAMETERS" value="solver labyrinth.zip" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -518,12 +521,12 @@
       <workItem from="1522704613015" duration="800000" />
       <workItem from="1522788604538" duration="5466000" />
       <workItem from="1522870167666" duration="2536000" />
-      <workItem from="1523116248248" duration="6973000" />
+      <workItem from="1523116248248" duration="7544000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46154000" />
+    <option name="totallyTimeSpent" value="46725000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -538,7 +541,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23300971" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="480" y="310" width="406" height="118" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.407767" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="480" y="310" width="406" height="118" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1016,38 +1019,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Maze.java">
+    <entry file="file://$PROJECT_DIR$/src/fr/imie/labyrinth/solver/Solve.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="57" column="35" lean-forward="true" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+        <state relative-caret-position="278">
+          <caret line="221" column="1" lean-forward="true" selection-start-line="221" selection-start-column="1" selection-end-line="221" selection-end-column="1" />
           <folding>
-            <element signature="method#fillWithCells#0;class#Maze#0" expanded="false" />
-            <element signature="method#getRandomCell#0;class#Maze#0" expanded="false" />
-            <element signature="method#mazeIsFull#0;class#Maze#0" expanded="false" />
-            <element signature="method#wallBreaker#0;class#Maze#0" expanded="false" />
-            <element signature="method#addStartGoal#0;class#Maze#0" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#4557#4558#0" expanded="true" />
+            <element signature="e#4605#4606#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Launcher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="108" column="55" lean-forward="false" selection-start-line="108" selection-start-column="55" selection-end-line="108" selection-end-column="55" />
+        <state relative-caret-position="259">
+          <caret line="235" column="22" lean-forward="false" selection-start-line="235" selection-start-column="12" selection-end-line="235" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fr/imie/labyrinth/solver/Solve.java">
+    <entry file="file://$PROJECT_DIR$/src/fr/imie/labyrinth/launcher/Maze.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+        <state relative-caret-position="1497">
+          <caret line="302" column="9" lean-forward="false" selection-start-line="302" selection-start-column="9" selection-end-line="302" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4557#4558#0" expanded="true" />
-            <element signature="e#4605#4606#0" expanded="true" />
+            <element signature="method#fillWithCells#0;class#Maze#0" expanded="false" />
+            <element signature="method#getRandomCell#0;class#Maze#0" expanded="false" />
+            <element signature="method#mazeIsFull#0;class#Maze#0" expanded="false" />
+            <element signature="method#wallBreaker#0;class#Maze#0" expanded="false" />
+            <element signature="method#addStartGoal#0;class#Maze#0" expanded="false" />
           </folding>
         </state>
       </provider>

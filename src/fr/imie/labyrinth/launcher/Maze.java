@@ -225,15 +225,6 @@ public class Maze {
 		// Gets the neighboors
 		ArrayList<Cell> neighboors = this.getNeighboors(mainCell);
 
-		// Debug
-		/*System.out.println("> Treatment in order to know the contiguous cells : ");
-		System.out.println("All neighboors are : ");
-		for (int i = 0; i < neighboors.size(); i++) {
-			System.out.println("- ("+neighboors.get(i).getX()+", "+neighboors.get(i).getY()+")");
-		}
-		System.out.println("\nSee below the treated neigboors : ");*/
-
-
 		// Tests the adjacency
 		Cell treatedCell;
 		int posX, posY;
@@ -242,9 +233,6 @@ public class Maze {
 
 		for (int i = 0; i < fixedSize; i++) {
 			treatedCell = neighboors.get(i);
-
-			// Debug
-			//System.out.println("Is treated : ("+treatedCell.getX()+", "+treatedCell.getY()+")");
 
 			posX = -1 * (x - treatedCell.getX());
 			posY = -1 * (y - treatedCell.getY());
@@ -283,13 +271,7 @@ public class Maze {
 
 	// Solves the maze
 	public void solve(Cell currentCell){
-		// Debug
-		/*System.out.println("---------------");
-		System.out.println("Tested cell is : ("+currentCell.getX()+", "+currentCell.getY()+")");*/
-
 		currentCell.setAsVisited();
-
-
 		currentCell.setQuickPath(true);
 
 		// Stopped when the goal point is reached
@@ -297,15 +279,7 @@ public class Maze {
 			// Get the neighboors
 			ArrayList<Cell> contiguousCells = getContiguousCells(currentCell);
 
-			// Debug
-			/*System.out.println("\nHas final neighboors: "+(!contiguousCells.isEmpty()));*/
-
-
 			if(contiguousCells.isEmpty()) {
-				// Debug
-				/*System.out.println("Doesn't have final neighboors");
-				System.out.println("Get the previous cell and repeat the process");*/
-
 				currentCell.setQuickPath(false);
 
 				// Removes the current cell
@@ -316,12 +290,6 @@ public class Maze {
 
 				solve(lastCell);
 			}else{
-				// Debug
-				/*System.out.println("Final neighboors are : ");
-				for (int i = 0; i < contiguousCells.size(); i++) {
-					System.out.println("- ("+contiguousCells.get(i).getX()+", "+contiguousCells.get(i).getY()+")");
-				}*/
-
 				// Picks the next cell
 				int randomIndex = new Random().nextInt(contiguousCells.size());
 				Cell nextCell = contiguousCells.get(randomIndex);
@@ -332,9 +300,6 @@ public class Maze {
 				// Repeat the process with the next cell
 				solve(nextCell);
 			}
-		}else{
-			// Debug
-			/*System.out.println("Goal achieved");*/
 		}
 	}
 
