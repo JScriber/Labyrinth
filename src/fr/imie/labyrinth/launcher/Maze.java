@@ -274,15 +274,15 @@ public class Maze {
 		currentCell.setAsVisited();
 		currentCell.setQuickPath(true);
 
-		// Stopped when the goal point is reached
+		// Stops when the goal point is reached
 		if(!currentCell.isGoalPoint()){
-			// Get the neighboors
+			// Getting the neighboors
 			ArrayList<Cell> contiguousCells = getContiguousCells(currentCell);
 
 			if(contiguousCells.isEmpty()) {
 				currentCell.setQuickPath(false);
 
-				// Removes the current cell
+				// Removes the current cell from the array
 				ariane.remove(currentCell);
 
 				// Takes the last one and repeat the all process
@@ -324,9 +324,6 @@ public class Maze {
 				render = render.concat(wall);
 				if(displayedCell.getTop().isBroken()){
 					if(displayedCell.isMemberOfQuickPath()){
-
-						//render = render.concat(quickPath);
-
 						if(i != 0){
 							if(maze[j][i-1].isMemberOfQuickPath()){
 								render = render.concat(quickPath);
