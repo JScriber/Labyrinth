@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import java.util.Scanner;
 import java.util.zip.*;
 
+import fr.imie.labyrinth.exceptions.IsNotArchiveException;
 import fr.imie.labyrinth.exceptions.IsNotMazeException;
 import fr.imie.labyrinth.exceptions.MissingArgumentsException;
 import fr.imie.labyrinth.exceptions.TooHighNumberException;
@@ -143,7 +144,7 @@ public class Launcher {
 	}
 	
 	// Tests at multiple levels if the given parameters suit our needs
-	public static void checkParameters(String [] args) throws MissingArgumentsException, TooHighNumberException, NegativeNumberException {
+	public static void checkParameters(String [] args) throws MissingArgumentsException, IsNotArchiveException, TooHighNumberException, NegativeNumberException {
 		int numberOfArguments = args.length;
 		
 		if(numberOfArguments != 0) {
@@ -190,16 +191,30 @@ public class Launcher {
 								int numberOfLabyrinth = Integer.parseInt(args[1]);
 								int width = Integer.parseInt(args[2]);
 								int height = Integer.parseInt(args[3]);
+								// Tests the maximum limit
 								if(width > maxLimit || height > maxLimit || numberOfLabyrinth > maxLimit) {
 									throw new TooHighNumberException(limitReached);
 								}
+								// Tests the minimum limit
 								if(width <= 0 || height <= 0 || numberOfLabyrinth <= 0) {
 									throw new NegativeNumberException(negativeWarning);
+								}
+								
+								// The archive must be a zip file
+								String archiveName = args[4];
+								if(!archiveName.contains(".zip")) {
+									String errorMessage = "This program only handles .zip archives.\nTherefore you must ";
+									if(archiveName.contains(".")) {
+										errorMessage = errorMessage.concat("change your extension.");
+									}else {
+										errorMessage = errorMessage.concat("specify a .zip extension at the end of "+archiveName);
+									}
+									throw new IsNotArchiveException(errorMessage);
 								}
 							
 								try
                                 {
-                                    multipleLabyrinth(numberOfLabyrinth, width, height, args[4]);
+                                    multipleLabyrinth(numberOfLabyrinth, width, height, archiveName);
                                 } catch (Exception e){
                                     System.out.println("Couldn't create an archive.");
                                 }
@@ -243,6 +258,8 @@ public class Launcher {
 		} catch (TooHighNumberException e) {
 			System.out.println(e.getError());
 		} catch (NegativeNumberException e) {
+			System.out.println(e.getError());
+		} catch (IsNotArchiveException e) {
 			System.out.println(e.getError());
 		}
 	}
