@@ -232,16 +232,25 @@ public class Maze {
 		ArrayList<Cell> neighboors = this.getNeighboors(mainCell);
 
 		// Debug
-		System.out.println("Before : ");
+		/*System.out.println("> Treatment in order to know the contiguous cells : ");
+		System.out.println("All neighboors are : ");
 		for (int i = 0; i < neighboors.size(); i++) {
-			System.out.println(i+") "+neighboors.get(i).getX()+" "+neighboors.get(i).getY());
+			System.out.println("- ("+neighboors.get(i).getX()+", "+neighboors.get(i).getY()+")");
 		}
+		System.out.println("\nSee below the treated neigboors : ");*/
+
 
 		// Tests the adjacency
 		Cell treatedCell;
 		int posX, posY;
-		for (int i = 0; i < neighboors.size(); i++) {
+		// Used as the size changes
+		int fixedSize = neighboors.size();
+
+		for (int i = 0; i < fixedSize; i++) {
 			treatedCell = neighboors.get(i);
+
+			// Debug
+			//System.out.println("Is treated : ("+treatedCell.getX()+", "+treatedCell.getY()+")");
 
 			posX = -1 * (x - treatedCell.getX());
 			posY = -1 * (y - treatedCell.getY());
@@ -249,11 +258,13 @@ public class Maze {
 			if(posX == 1){
 				if(!mainCell.getRight().isBroken()){
 					neighboors.remove(i);
+					i--; fixedSize--;
 				}
 			}else{
 				if(posX == -1){
 					if(!mainCell.getLeft().isBroken()){
 						neighboors.remove(i);
+						i--; fixedSize--;
 					}
 				}
 			}
@@ -261,11 +272,13 @@ public class Maze {
 			if(posY == 1){
 				if(!mainCell.getBottom().isBroken()){
 					neighboors.remove(i);
+					i--; fixedSize--;
 				}
 			}else{
 				if(posY == -1){
 					if(!mainCell.getTop().isBroken()){
 						neighboors.remove(i);
+						i--; fixedSize--;
 					}
 				}
 			}
@@ -276,60 +289,64 @@ public class Maze {
 
 	// Solves the maze
 	public void solve(Cell currentCell){
-		System.out.println("-----");
-		System.out.println("Tested : "+currentCell.getX()+" "+currentCell.getY());
+		// Debug
+		/*System.out.println("---------------");
+		System.out.println("Tested cell is : ("+currentCell.getX()+", "+currentCell.getY()+")");*/
+
 		currentCell.setAsVisited();
+
 
 		currentCell.setQuickPath(true);
 
-		// Get the neighboors
-		ArrayList<Cell> contiguousCells = getContiguousCells(currentCell);
+		// Stopped when the goal point is reached
 		if(!currentCell.isGoalPoint()){
+			// Get the neighboors
+			ArrayList<Cell> contiguousCells = getContiguousCells(currentCell);
+
+			// Debug
+			/*System.out.println("\nHas final neighboors: "+(!contiguousCells.isEmpty()));*/
+
+
 			if(contiguousCells.isEmpty()) {
+				// Debug
+				/*System.out.println("Doesn't have final neighboors");
+				System.out.println("Get the previous cell and repeat the process");*/
+
 				currentCell.setQuickPath(false);
 
-				// Get back into the ariane string
+				// Removes the current cell
+				ariane.remove(currentCell);
+
+				// Takes the last one and repeat the all process
 				Cell lastCell = ariane.get(ariane.size() - 1);
-				ariane.remove(ariane.size() - 1);
 
 				solve(lastCell);
 			}else{
 				// Debug
-
-				System.out.println("After : ");
+				/*System.out.println("Final neighboors are : ");
 				for (int i = 0; i < contiguousCells.size(); i++) {
-					System.out.println(i+") "+contiguousCells.get(i).getX()+" "+contiguousCells.get(i).getY());
-				}
-
+					System.out.println("- ("+contiguousCells.get(i).getX()+", "+contiguousCells.get(i).getY()+")");
+				}*/
 
 				// Picks the next cell
 				int randomIndex = new Random().nextInt(contiguousCells.size());
 				Cell nextCell = contiguousCells.get(randomIndex);
 
-				// Adds the last cell to the ariane string
+				// Adds the current cell to the ariane string (officially the last cell visited)
 				ariane.add(currentCell);
 
+				// Repeat the process with the next cell
 				solve(nextCell);
 			}
 		}else{
-			System.out.println("Goal achieved");
+			// Debug
+			/*System.out.println("Goal achieved");*/
 		}
 	}
 
 	// Displaying functions
 	@Override
 	public String toString() {
-		// Show the number of wall for
-
-        for (int i = 0; i < this.height; i++) {
-            for (int j = 0; j < this.width; j++) {
-                System.out.println(j+" "+i+" has "+nbrOfWalls(maze[j][i])+" walls");
-            }
-            System.out.println();
-        }
-        System.out.println();
-
-
 		// Get the associated strings
 		String wall = Symbol.WALL.toString();
 		String lane = Symbol.LANE.toString();
