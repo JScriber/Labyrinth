@@ -72,7 +72,7 @@ public class Solve {
 
         // Tests if it contains only handled characters
         if(!containsHandledCharacters(textMaze)){
-            throw new IsNotMazeException("An not handled character has been found!");
+            throw new IsNotMazeException("A not handled character has been found!");
         }
 
         // Iterates over the maze (two by two)
@@ -141,10 +141,16 @@ public class Solve {
         }
         return new Maze(maze);
     }
+    // Returns the textMaze without the \n
+    private static String getMazeWithoutBackspaces(String maze){
+        return maze.replaceAll("\n", "");
+    }
 
     // Find out the size of the maze
     public static Dimension findWidthHeight(String maze) throws IsNotMazeException {
         String character = "";
+        String notRectangleMessage = "Not rectangle maze.";
+
         int counter = 0, width, height;
 
         for (int i = 0; i < maze.length() ; i++) {
@@ -160,7 +166,8 @@ public class Solve {
         }
 
         width = counter;
-        height = (maze.length()-1)/counter;
+        // Calculates the theoric height from the width
+        height = (getMazeWithoutBackspaces(maze).length())/width;
 
         //Security test
         int loop = 0;
@@ -168,13 +175,20 @@ public class Solve {
             character = maze.charAt(i)+"";
 
             if(!character.equals("\n")){
-                throw new IsNotMazeException("Not rectangle maze.");
+                throw new IsNotMazeException(notRectangleMessage);
             }
             loop++;
         }
+
         // Height test
         if(loop != height){
-            throw new IsNotMazeException("Not rectangle maze.");
+            throw new IsNotMazeException(notRectangleMessage);
+        }
+
+        // Further and ultimate testing (maths only)
+        int finalSize = (height*width)+height-1;
+        if(finalSize != maze.length()-1){
+            throw new IsNotMazeException(notRectangleMessage);
         }
 
         return new Dimension(width, height);

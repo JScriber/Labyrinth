@@ -84,6 +84,7 @@ public class Launcher {
 		} catch (OutOfMemoryError e) {
 			System.out.println(fileName+" is too big.");
 		} catch (IsNotMazeException e){
+			System.out.println(e.getError());
 			System.out.println(fileName+" doesn't contain a maze.");
 		} catch (IOException e){
 			System.out.println("Could't access to "+fileName);
