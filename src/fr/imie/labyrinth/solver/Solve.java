@@ -16,7 +16,7 @@ import fr.imie.labyrinth.exceptions.IsNotMazeException;
 public class Solve {
 
     // Gets the maze as a String
-    public static String getStringMaze(String fileName) throws OutOfMemoryError, IOException {
+    private static String getStringMaze(String fileName) throws OutOfMemoryError, IOException {
         Path filePath = Paths.get(System.getProperty("user.dir"), fileName);
 
         // Gets the pieces of the maze
@@ -34,7 +34,7 @@ public class Solve {
     }
 
     // Breaks the wall if the symbol is equal
-    public static void wallBreaker(String symbol, Wall cellWall){
+    private static void wallBreaker(String symbol, Wall cellWall){
 
         // Defines what is a broken wall
         String brokenWall = Symbol.LANE.toString();
@@ -68,7 +68,7 @@ public class Solve {
         maze = new Cell[realWidth][realHeight];
 
         // Wipes out the useless and irritating \n
-        textMaze = textMaze.replaceAll("\n", "");
+        textMaze = getMazeWithoutBackspaces(textMaze);
 
         // Tests if it contains only handled characters
         if(!containsHandledCharacters(textMaze)){
@@ -141,13 +141,14 @@ public class Solve {
         }
         return new Maze(maze);
     }
+
     // Returns the textMaze without the \n
     private static String getMazeWithoutBackspaces(String maze){
         return maze.replaceAll("\n", "");
     }
 
     // Find out the size of the maze
-    public static Dimension findWidthHeight(String maze) throws IsNotMazeException {
+    private static Dimension findWidthHeight(String maze) throws IsNotMazeException {
         String character = "";
         String notRectangleMessage = "Not rectangle maze.";
 
@@ -195,7 +196,7 @@ public class Solve {
     }
 
     // Security test
-    public static boolean containsHandledCharacters(String testedString){
+    private static boolean containsHandledCharacters(String testedString){
         String[] authorizedValue = {
                 Symbol.END.toString(),
                 Symbol.START.toString(),
@@ -218,6 +219,4 @@ public class Solve {
         }
         return true;
     }
-
-
 }
